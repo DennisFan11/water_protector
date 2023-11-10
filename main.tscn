@@ -1,3 +1,40 @@
-[gd_scene format=3 uid="uid://cpmmxmt5ftyqo"]
+[gd_scene load_steps=7 format=3 uid="uid://cpmmxmt5ftyqo"]
+
+[ext_resource type="PackedScene" uid="uid://lm7g2vb1sm1n" path="res://tscns/FluidServer/fluid_server.tscn" id="1_cufdj"]
+[ext_resource type="Script" path="res://main.gd" id="1_rofg3"]
+[ext_resource type="PackedScene" uid="uid://ch1iefwy2kbta" path="res://tscns/scene_object/water_emitter/water_emitter.tscn" id="3_shnmj"]
+[ext_resource type="PackedScene" uid="uid://3eli1pcc1gk3" path="res://tscns/scene_object/collider/collider.tscn" id="4_yp5mn"]
+[ext_resource type="PackedScene" uid="uid://dt28dm8gjqoq0" path="res://tscns/scene_object/dye_adder/dye_adder.tscn" id="5_y3jkj"]
+[ext_resource type="PackedScene" uid="uid://jdywubpn8wtc" path="res://tscns/scene_object/background_dye_adder/background_dye_adder.tscn" id="6_fvt1k"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_rofg3")
+
+[node name="FluidServer" parent="." instance=ExtResource("1_cufdj")]
+
+[node name="Scene" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Scene"]
+visible = false
+color = Color(0.784314, 0.619608, 0.105882, 1)
+polygon = PackedVector2Array(0, 0, 0, 720, 1280, 720, 1280, 0)
+
+[node name="water_emitter" parent="Scene" instance=ExtResource("3_shnmj")]
+
+[node name="collider" parent="Scene" instance=ExtResource("4_yp5mn")]
+pos = Vector2(180, 280)
+rot_speed = 1
+
+[node name="collider2" parent="Scene" instance=ExtResource("4_yp5mn")]
+pos = Vector2(180, 440)
+rot_speed = -1
+
+[node name="dye_adder" parent="Scene" instance=ExtResource("5_y3jkj")]
+
+[node name="background_dye_adder" parent="Scene" instance=ExtResource("6_fvt1k")]
+
+[node name="field_output" type="Sprite2D" parent="Scene"]
+visible = false
+
+[node name="dye_output" type="Sprite2D" parent="Scene"]
+modulate = Color(1, 1, 1, 0.623529)

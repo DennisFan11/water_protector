@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch1iefwy2kbta"]
+
+[ext_resource type="Script" path="res://tscns/scene_object/water_emitter/water_emitter.gd" id="1_3bn83"]
+
+[node name="water_emitter" type="Node2D"]
+position = Vector2(0, 360)
+script = ExtResource("1_3bn83")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(80, 360)

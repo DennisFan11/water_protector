@@ -15,8 +15,27 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[input]
+
+left_key={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(37, 14),"global_position":Vector2(41, 55),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
 [rendering]
 
+viewport/transparent_background=true
 viewport/hdr_2d=true
 
 [shader_globals]
@@ -31,7 +50,7 @@ sim_delta_time={
 }
 sim_border_color={
 "type": "vec3",
-"value": Vector3(0, 0, 0)
+"value": Vector3(0, 0, -1)
 }
 sim_border_line={
 "type": "float",
@@ -40,4 +59,12 @@ sim_border_line={
 sim_input={
 "type": "sampler2D",
 "value": ""
+}
+sim_vorticity={
+"type": "float",
+"value": 0.0
+}
+sim_viscosity_scale={
+"type": "float",
+"value": 0.0
 }
