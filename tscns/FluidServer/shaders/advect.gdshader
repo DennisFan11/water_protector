@@ -34,9 +34,5 @@ void fragment()
 	v0.rgb = bilerp(TEXTURE, pos, pixel); //双线性插值
 	//v0.rgb = clamp(v0.rgb, vec3(vec2(-10.0),0.5), vec3(vec2(10.0),3.0));//範圍限制
 	COLOR.rgb = v0.rgb;
-	if(texture(sim_input,UV+COLOR.rg*S*TEXTURE_PIXEL_SIZE).rgb == sim_border_color){
-		COLOR.rg*=-1.0;
-	}
-	
 	COLOR.a = 1.0;
 }

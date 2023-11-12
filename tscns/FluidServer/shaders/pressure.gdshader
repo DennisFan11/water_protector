@@ -9,6 +9,7 @@ void fragment() {
 	float v2 = texture(TEXTURE,vec2(UV.x - pixel.x, UV.y)).b;
 	float v3 = texture(TEXTURE,vec2(UV.x, UV.y + pixel.y)).b;
 	float v4 = texture(TEXTURE,vec2(UV.x, UV.y - pixel.y)).b;
+	/*
 	if(texture(sim_input,vec2(UV.x + pixel.x, UV.y)).rgb == sim_border_color){
 		v1 = 0.0;
 		count-=1;
@@ -21,7 +22,7 @@ void fragment() {
 	}if(texture(sim_input,vec2(UV.x, UV.y - pixel.y)).rgb == sim_border_color){
 		v4 = 0.0;
 		count-=1;
-	}
+	}*/
 	float laplacian;
 	if(count!=0){
 		laplacian = (v1 + v2 + v3 + v4 - v0)/float(count);
@@ -32,7 +33,4 @@ void fragment() {
 	COLOR.b = laplacian;
 	COLOR.r = v0;
 	COLOR.a = 1.0;
-	if(texture(sim_input,UV).rgb == sim_border_color){
-		COLOR=vec4(0.0);
-	}
 }

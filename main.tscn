@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpmmxmt5ftyqo"]
+[gd_scene load_steps=9 format=3 uid="uid://cpmmxmt5ftyqo"]
 
 [ext_resource type="PackedScene" uid="uid://lm7g2vb1sm1n" path="res://tscns/FluidServer/fluid_server.tscn" id="1_cufdj"]
 [ext_resource type="Script" path="res://main.gd" id="1_rofg3"]
 [ext_resource type="PackedScene" uid="uid://ch1iefwy2kbta" path="res://tscns/scene_object/water_emitter/water_emitter.tscn" id="3_shnmj"]
 [ext_resource type="PackedScene" uid="uid://3eli1pcc1gk3" path="res://tscns/scene_object/collider/collider.tscn" id="4_yp5mn"]
-[ext_resource type="PackedScene" uid="uid://dt28dm8gjqoq0" path="res://tscns/scene_object/dye_adder/dye_adder.tscn" id="5_y3jkj"]
+[ext_resource type="Script" path="res://UI.gd" id="6_5pemc"]
 [ext_resource type="PackedScene" uid="uid://jdywubpn8wtc" path="res://tscns/scene_object/background_dye_adder/background_dye_adder.tscn" id="6_fvt1k"]
+[ext_resource type="Shader" path="res://main.gdshader" id="6_u0mwf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ifuct"]
+resource_local_to_scene = true
+shader = ExtResource("6_u0mwf")
+shader_parameter/R = 1.0
+shader_parameter/G = 1.0
+shader_parameter/B = 1.0
 
 [node name="main" type="Node"]
 script = ExtResource("1_rofg3")
@@ -15,26 +23,200 @@ script = ExtResource("1_rofg3")
 [node name="Scene" type="Node2D" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Scene"]
-visible = false
 color = Color(0.784314, 0.619608, 0.105882, 1)
 polygon = PackedVector2Array(0, 0, 0, 720, 1280, 720, 1280, 0)
+
+[node name="background_dye_adder" parent="Scene" instance=ExtResource("6_fvt1k")]
 
 [node name="water_emitter" parent="Scene" instance=ExtResource("3_shnmj")]
 
 [node name="collider" parent="Scene" instance=ExtResource("4_yp5mn")]
 pos = Vector2(180, 280)
-rot_speed = 1
+rot_speed = 4
 
 [node name="collider2" parent="Scene" instance=ExtResource("4_yp5mn")]
 pos = Vector2(180, 440)
-rot_speed = -1
-
-[node name="dye_adder" parent="Scene" instance=ExtResource("5_y3jkj")]
-
-[node name="background_dye_adder" parent="Scene" instance=ExtResource("6_fvt1k")]
+rot_speed = -4
 
 [node name="field_output" type="Sprite2D" parent="Scene"]
-visible = false
+material = SubResource("ShaderMaterial_ifuct")
 
 [node name="dye_output" type="Sprite2D" parent="Scene"]
 modulate = Color(1, 1, 1, 0.623529)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("6_5pemc")
+
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_top = 16.0
+offset_right = 256.0
+offset_bottom = 76.0
+grow_horizontal = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel"]
+layout_mode = 2
+offset_left = 166.0
+offset_top = 10.0
+offset_right = 342.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "染料"
+
+[node name="Button2" type="Button" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "向量"
+
+[node name="Button3" type="Button" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "碰撞"
+
+[node name="Panel" type="Panel" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(190, 40)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel/HBoxContainer/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="R" type="CheckBox" parent="UI/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "R"
+
+[node name="G" type="CheckBox" parent="UI/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "G"
+
+[node name="B" type="CheckBox" parent="UI/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "B"
+
+[node name="Dye" type="CheckBox" parent="UI/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Dye"
+
+[node name="Panel2" type="Panel" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Panel/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FPS="
+
+[node name="PanelSpeed" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 336.0
+offset_top = 16.0
+offset_right = 376.0
+offset_bottom = 144.0
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelSpeed"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI/PanelSpeed/VBoxContainer"]
+layout_mode = 2
+text = "旋轉"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelSpeed/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+alignment = 1
+
+[node name="VSlider" type="VSlider" parent="UI/PanelSpeed/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 10.0
+value = 1.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="VSlider2" type="VSlider" parent="UI/PanelSpeed/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 10.0
+value = 1.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="PanelEmit" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 16.0
+offset_right = 328.0
+offset_bottom = 144.0
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelEmit"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI/PanelEmit/VBoxContainer"]
+layout_mode = 2
+text = "速度"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelEmit/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+alignment = 1
+
+[node name="speed" type="VSlider" parent="UI/PanelEmit/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 4.0
+step = 0.01
+value = 0.1
+tick_count = 6
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 904.0
+offset_top = 16.0
+offset_right = 944.0
+offset_bottom = 39.0
+text = "tip:滾輪可以縮放"
+
+[connection signal="pressed" from="UI/Panel/HBoxContainer/Button" to="UI" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Panel/HBoxContainer/Button2" to="UI" method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/Panel/HBoxContainer/Button3" to="UI" method="_on_button_3_pressed"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/Panel/HBoxContainer/R" to="UI" method="_on_r_toggled"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/Panel/HBoxContainer/G" to="UI" method="_on_g_toggled"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/Panel/HBoxContainer/B" to="UI" method="_on_b_toggled"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/Panel/HBoxContainer/Dye" to="UI" method="_on_dye_toggled"]
+[connection signal="value_changed" from="UI/PanelSpeed/VBoxContainer/HBoxContainer/VSlider" to="UI" method="_on_v_slider_value_changed"]
+[connection signal="value_changed" from="UI/PanelSpeed/VBoxContainer/HBoxContainer/VSlider2" to="UI" method="_on_v_slider_2_value_changed"]
+[connection signal="value_changed" from="UI/PanelEmit/VBoxContainer/HBoxContainer/speed" to="UI" method="_on_speed_value_changed"]

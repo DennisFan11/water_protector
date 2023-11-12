@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://lm7g2vb1sm1n"]
+[gd_scene load_steps=22 format=3 uid="uid://lm7g2vb1sm1n"]
 
 [ext_resource type="Script" path="res://tscns/FluidServer/fluid_server.gd" id="1_xcoek"]
 [ext_resource type="Shader" path="res://tscns/FluidServer/shaders/input_border.gdshader" id="2_kapx6"]
@@ -6,8 +6,6 @@
 [ext_resource type="Shader" path="res://tscns/FluidServer/shaders/divergence.gdshader" id="4_esda7"]
 [ext_resource type="Shader" path="res://tscns/FluidServer/shaders/final.gdshader" id="5_0g657"]
 [ext_resource type="Shader" path="res://tscns/FluidServer/dye_and_output/dye_viewport.gdshader" id="6_bibtg"]
-[ext_resource type="Shader" path="res://tscns/FluidServer/dye_and_output/dye_output.gdshader" id="7_03cvb"]
-[ext_resource type="Shader" path="res://tscns/FluidServer/dye_and_output/field_output.gdshader" id="8_bp5h6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgjrd"]
 shader = ExtResource("2_kapx6")
@@ -54,14 +52,8 @@ shader_parameter/field = SubResource("ViewportTexture_v34jy")
 [sub_resource type="ViewportTexture" id="ViewportTexture_8y2pf"]
 viewport_path = NodePath("output/fluid_viewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtltq"]
-shader = ExtResource("7_03cvb")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_1qsdf"]
 viewport_path = NodePath("output/fluid_viewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1gop"]
-shader = ExtResource("8_bp5h6")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v0fys"]
 viewport_path = NodePath("final_viewport")
@@ -129,11 +121,9 @@ texture = SubResource("ViewportTexture_8y2pf")
 [node name="dye_output" type="SubViewport" parent="output"]
 
 [node name="Sprite2D" type="Sprite2D" parent="output/dye_output"]
-material = SubResource("ShaderMaterial_vtltq")
 texture = SubResource("ViewportTexture_1qsdf")
 
 [node name="field_output" type="SubViewport" parent="output"]
 
 [node name="Sprite2D" type="Sprite2D" parent="output/field_output"]
-material = SubResource("ShaderMaterial_a1gop")
 texture = SubResource("ViewportTexture_v0fys")

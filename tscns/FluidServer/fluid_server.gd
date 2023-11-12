@@ -7,7 +7,7 @@ var k = 0.5:
 	set(new):
 		k=new
 		_set_parameter()
-var border_line = 2.0:
+var border_line = 4.0:
 	set(new):
 		border_line=new
 		_set_parameter()
@@ -19,7 +19,7 @@ var viscosity_scale = 64
 var vorticity = 2
 
 var pressure_layer:int = 50
-var jacobi_layer:int = 20
+var jacobi_layer:int = 40
 
 var pressure_shader:Shader = preload("res://tscns/FluidServer/shaders/pressure.gdshader")
 var jacobi_shader:Shader = preload("res://tscns/FluidServer/shaders/jacobi.gdshader")
@@ -39,33 +39,42 @@ func _ready():
 
 func _process(delta):
 	RenderingServer.global_shader_parameter_set("sim_delta_time",delta)
-	
+
+
+var DyeShader = preload("res://tscns/FluidServer/objects/dye.gdshader")
+var BorderShader = preload("res://tscns/FluidServer/objects/border.gdshader")
+var EmitterShader = preload("res://tscns/FluidServer/objects/emitter.gdshader")
 func RegDyeObj(text:Texture2D):#註冊實例
-	var object = DyeEmitObject.new()
-	var agent = Sprite2D.new()
-	agent.texture = text
-	dye_viewport.add_child(agent)
-	object.agent = agent
-	object._sync()
-	return(object)
-	
-func RegEmitObj(text:Texture2D):
-	var object = EmitterObject.new()
-	var agent = Sprite2D.new()
-	agent.texture = text
-	input_viewport.add_child(agent)
-	object.agent = agent
-	object._sync()
+	var object = Sprite2D.new()
+	object.texture = text
+	object.material = ShaderMaterial.new()
+	object.material.set_shader(DyeShader.duplicate(true))
+	dye_viewport.add_child(object)
 	return(object)
 	
 func RegBordObj(text:Texture2D):
-	var object = BorderObject.new()
-	var agent = Sprite2D.new()
-	agent.texture = text
-	input_viewport.add_child(agent)
-	object.agent = agent
-	object._sync()
+	var object = Sprite2D.new()
+	object.texture = text
+	object.material = ShaderMaterial.new()
+	object.material.set_shader(BorderShader.duplicate(true))
+	input_viewport.add_child(object)
 	return(object)
+
+func RegVecObj(text:Texture2D):
+	var object = Sprite2D.new()
+	object.texture = text
+	input_viewport.add_child(object)
+	return(object)
+	
+func RegEmitObj(text:Texture2D):
+	var object = Sprite2D.new()
+	object.texture = text
+	object.material = ShaderMaterial.new()
+	object.material.set_shader(EmitterShader.duplicate(true))
+	input_viewport.add_child(object)
+	return(object)
+	
+
 
 
 
