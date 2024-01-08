@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://v7ec8p720wj"]
+
+[ext_resource type="Script" path="res://tscns/scene_object/scanner/scanner.gd" id="1_xq2m8"]
+
+[node name="Marker2D" type="Marker2D"]
+script = ExtResource("1_xq2m8")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 25.0

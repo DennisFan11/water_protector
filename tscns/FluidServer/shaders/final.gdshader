@@ -66,6 +66,7 @@ void fragment() {
 		COLOR.b = totp*1.;
 		COLOR.rg = totv*2.;
 	}else{
+		COLOR.r+=0.001;
 		//vorticity
 		/*
 		bool a1 = check(vec2(UV.x + pixel.x, UV.y),pixel);
@@ -82,9 +83,9 @@ void fragment() {
 		
 		*/
 		/*
-		float x = (curl(jacobi, vec2(UV.x + pixel.x, UV.y), pixel)) - (curl(jacobi, vec2(UV.x - pixel.x, UV.y), pixel));
-		float y = (curl(jacobi, vec2(UV.x, UV.y + pixel.y), pixel)) - (curl(jacobi, vec2(UV.x, UV.y - pixel.y), pixel));
-		vec2 dir = sim_vorticity * vec2(x,y) / (length(vec2(x,y)) + 0.00001);
+		float x = abs(curl(jacobi, vec2(UV.x + pixel.x, UV.y), pixel)) - abs(curl(jacobi, vec2(UV.x - pixel.x, UV.y), pixel));
+		float y = abs(curl(jacobi, vec2(UV.x, UV.y + pixel.y), pixel)) - abs(curl(jacobi, vec2(UV.x, UV.y - pixel.y), pixel));
+		vec2 dir = sim_vorticity * vec2(x,y) / (length(vec2(x,y)) + 1e-5);
 		vec2 v = dir * curl(jacobi, UV, pixel);
 		COLOR.rg +=v;
 		*/

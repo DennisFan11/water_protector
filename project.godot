@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Water_Protector"
-run/main_scene="res://main.tscn"
+config/tags=PackedStringArray("card_game", "fluid")
+run/main_scene="res://startui.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://card.png"
 
 [autoload]
 
@@ -29,8 +30,13 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://tscns/FluidServer/": "blue",
+"res://tscns/card_class/": "red",
 "res://tscns/scene_object/": "red"
 }
+
+[gui]
+
+theme/custom_font="res://fonts/PlaypenSans-VariableFont_wght.ttf"
 
 [input]
 
@@ -49,9 +55,15 @@ roll_down={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(30, 14),"global_position":Vector2(34, 55),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(283, 17),"global_position":Vector2(287, 58),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 viewport/transparent_background=true
 viewport/hdr_2d=true
 
@@ -84,4 +96,8 @@ sim_vorticity={
 sim_viscosity_scale={
 "type": "float",
 "value": 0.0
+}
+card_noise={
+"type": "sampler2D",
+"value": ""
 }

@@ -23,6 +23,7 @@ void fragment() {
 		v4 = 0.0;
 		count-=1;
 	}*/
+	
 	float laplacian;
 	if(count!=0){
 		laplacian = (v1 + v2 + v3 + v4 - v0)/float(count);

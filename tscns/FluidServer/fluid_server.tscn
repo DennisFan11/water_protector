@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://lm7g2vb1sm1n"]
+[gd_scene load_steps=26 format=3 uid="uid://lm7g2vb1sm1n"]
 
 [ext_resource type="Script" path="res://tscns/FluidServer/fluid_server.gd" id="1_xcoek"]
 [ext_resource type="Shader" path="res://tscns/FluidServer/shaders/input_border.gdshader" id="2_kapx6"]
@@ -52,11 +52,25 @@ shader_parameter/field = SubResource("ViewportTexture_v34jy")
 [sub_resource type="ViewportTexture" id="ViewportTexture_8y2pf"]
 viewport_path = NodePath("output/fluid_viewport")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_io2c5"]
+viewport_path = NodePath("final_viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71hms"]
+resource_local_to_scene = true
+shader = ExtResource("6_bibtg")
+shader_parameter/field = SubResource("ViewportTexture_io2c5")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_074lg"]
+viewport_path = NodePath("output/pollution_viewport")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_1qsdf"]
 viewport_path = NodePath("output/fluid_viewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v0fys"]
 viewport_path = NodePath("final_viewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_usspy"]
+viewport_path = NodePath("output/pollution_viewport")
 
 [node name="FluidServer" type="Node2D"]
 script = ExtResource("1_xcoek")
@@ -102,6 +116,13 @@ render_target_update_mode = 4
 material = SubResource("ShaderMaterial_rejhx")
 texture = SubResource("ViewportTexture_64ydh")
 
+[node name="ColorRect" type="ColorRect" parent="final_viewport"]
+visible = false
+offset_left = 1260.0
+offset_right = 1300.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
 [node name="output" type="Node2D" parent="."]
 
 [node name="fluid_viewport" type="SubViewport" parent="output"]
@@ -118,6 +139,18 @@ render_target_update_mode = 4
 material = SubResource("ShaderMaterial_50re3")
 texture = SubResource("ViewportTexture_8y2pf")
 
+[node name="pollution_viewport" type="SubViewport" parent="output"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="output/pollution_viewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="output/pollution_viewport/SubViewportContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="output/pollution_viewport/SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_71hms")
+texture = SubResource("ViewportTexture_074lg")
+
 [node name="dye_output" type="SubViewport" parent="output"]
 
 [node name="Sprite2D" type="Sprite2D" parent="output/dye_output"]
@@ -127,3 +160,8 @@ texture = SubResource("ViewportTexture_1qsdf")
 
 [node name="Sprite2D" type="Sprite2D" parent="output/field_output"]
 texture = SubResource("ViewportTexture_v0fys")
+
+[node name="pollution_output" type="SubViewport" parent="output"]
+
+[node name="Sprite2D" type="Sprite2D" parent="output/pollution_output"]
+texture = SubResource("ViewportTexture_usspy")

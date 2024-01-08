@@ -8,7 +8,12 @@ void fragment() {
 	float s = sim_k/sim_delta_time;
 	vec2 uv = texture(field,UV).rg*s*TEXTURE_PIXEL_SIZE/2.0;
 	COLOR = texture(TEXTURE,UV-uv);
-	
+	if(COLOR.r+COLOR.g+COLOR.b <= 0.025){
+		//COLOR = texture(TEXTURE,UV);
+		if(COLOR.r+COLOR.g+COLOR.b <= 0.025){
+			//COLOR = vec4(0.0);
+		}
+	}
 	
 	if(texture(sim_input,UV).rgb == sim_border_color){
 		COLOR = vec4(0.0);

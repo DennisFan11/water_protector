@@ -35,4 +35,7 @@ void fragment()
 	//v0.rgb = clamp(v0.rgb, vec3(vec2(-10.0),0.5), vec3(vec2(10.0),3.0));//範圍限制
 	COLOR.rgb = v0.rgb;
 	COLOR.a = 1.0;
+	if(texture(sim_input, UV+S*pixel*COLOR.rg).rgb == sim_border_color){
+		//COLOR.rg*=1.-abs(COLOR.rg);
+	}
 }

@@ -3,7 +3,7 @@ var resolution:Vector2 = Vector2(1280,720):
 	set(new):
 		_set_resolution(self,new)
 		resolution = new
-var k = 0.5:
+var k = 1.0:
 	set(new):
 		k=new
 		_set_parameter()
@@ -18,16 +18,18 @@ var border_color = Vector3(0.0,0.0,-1.0):
 var viscosity_scale = 64
 var vorticity = 2
 
-var pressure_layer:int = 50
-var jacobi_layer:int = 40
+var pressure_layer:int = 25#50
+var jacobi_layer:int = 20#40
 
 var pressure_shader:Shader = preload("res://tscns/FluidServer/shaders/pressure.gdshader")
 var jacobi_shader:Shader = preload("res://tscns/FluidServer/shaders/jacobi.gdshader")
 @onready var input_viewport = $input_viewport/shader/ctrl_viewport
 @onready var dye_viewport = $output/fluid_viewport/buffer/SubViewport
+@onready var pollution_viewport = $output/pollution_viewport/SubViewportContainer/SubViewport
 
 @onready var dye_output = $output/dye_output.get_texture()
 @onready var field_output = $output/field_output.get_texture()
+@onready var pollution_output = $output/pollution_output.get_texture()
 func _ready():
 	_set_resolution(self,resolution)
 	_set_parameter()
@@ -74,7 +76,13 @@ func RegEmitObj(text:Texture2D):
 	input_viewport.add_child(object)
 	return(object)
 	
-
+func RegPollutionObj(text:Texture2D):
+	var object = Sprite2D.new()
+	object.texture = text
+	object.material = ShaderMaterial.new()
+	object.material.set_shader(DyeShader.duplicate(true))
+	pollution_viewport.add_child(object)
+	return(object)
 
 
 
